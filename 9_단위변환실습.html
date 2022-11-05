@@ -1,0 +1,57 @@
+<!-- 요소의 속성이면 속성, 이벤트 리스너면 이벤트 리스너 등록 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+  <body>
+    <div id="root"></div>
+  </body>
+  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    function App() {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onInvert = () => {
+        reset();
+        setInverted((current) => !current);
+      };
+      return (
+        // HTML
+        // <div>
+        //   <h1>Super Converter</h1>
+        //   <label for="minutes">분</label>
+        //   <input id="minutes" placeholder="분" type="number" />
+        //   <label for="hours">시간</label>
+        //   <input id="hours" placeholder="시간" type="number" />
+        // </div>
+        // React에서 label의 for 속성 사용할 수 없는 이유?
+        // for가 JavaScript의 반복문 예약어라서.. class도 에러가 난다.
+
+        // JSX
+        <div>
+          <h1 className="tit">Super Converter</h1>
+          <div>
+            <label htmlFor="minutes">분</label>
+            <input value={inverted ? amount * 60 : amount} id="minutes" placeholder="분" type="number" onChange={onChange} disabled={inverted} />
+          </div>
+          <div>
+            <label htmlFor="hours">시간</label>
+            <input value={inverted ? amount : Math.round(amount / 60)} id="hours" placeholder="시간" type="number" disabled={!inverted} onChange={onChange} />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+        </div>
+      );
+    }
+
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>

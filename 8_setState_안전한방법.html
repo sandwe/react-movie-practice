@@ -1,0 +1,35 @@
+<!-- 요소의 속성이면 속성, 이벤트 리스너면 이벤트 리스너 등록 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+  <body>
+    <div id="root"></div>
+  </body>
+  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const root = document.getElementById("root");
+
+    function App() {
+      const [counter, setCounter] = React.useState(0);
+      const onClick = () => {
+        // setCounter(counter + 1);
+        // 현재의 값을 가지고 새로운 값을 계산하고 싶을 때 아래의 방법이 더 안전하다.
+        // https://ko.reactjs.org/docs/faq-state.html#why-is-setstate-giving-me-the-wrong-value
+        // setState에 함수를 전달하면 함수의 첫번째 매개변수에 현재 값이 전달된다.
+        setCounter((current) => current + 1);
+      };
+
+      return (
+        <div>
+          <h3>Total Clicks: {counter}</h3>
+          <button onClick={onClick}>click me</button>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, root);
+  </script>
+</html>

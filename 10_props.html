@@ -1,0 +1,45 @@
+<!-- 요소의 속성이면 속성, 이벤트 리스너면 이벤트 리스너 등록 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+  <body>
+    <div id="root"></div>
+  </body>
+  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    // 함수 컴포넌트 인자로 전달되는 객체(props, property)에서 프로퍼티를 꺼낸다.
+    function Btn({text}) {
+      return (
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: 10,
+          }}
+        >
+          {text}
+        </button>
+      );
+    }
+
+    // function ConfirmBtn() {
+    //   return <button>Confirm</button>;
+    // }
+    function App() {
+      // Btn({text: "Save Changes"})와 같이 동작한다. Btn은 함수니까!
+      return (
+        <div>
+          <Btn text="Save Changes" />
+          <Btn text="Continue" />
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>

@@ -1,0 +1,32 @@
+<!-- 요소의 속성이면 속성, 이벤트 리스너면 이벤트 리스너 등록 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+  <body>
+    <div id="root"></div>
+  </body>
+  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    const Title = () => (
+      <h3 id="title" onMouseEnter={() => console.log("mouse")}>
+        Hello
+      </h3>
+    );
+
+    const Button = () => <button onClick={() => console.log("clicked")}>click me!</button>;
+
+    // 두개의 요소를 자식으로 넣어주기 위해서는 배열에 넣는다.
+    const Container = () => (
+      <div>
+        <Title />
+        <Button />
+      </div>
+    );
+    // JS로 요소를 만들고 HTML에 요소를 넣어주는 것이 React
+    ReactDOM.render(<Container />, root);
+  </script>
+</html>

@@ -1,0 +1,53 @@
+<!-- 요소의 속성이면 속성, 이벤트 리스너면 이벤트 리스너 등록 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+  <body>
+    <div id="root"></div>
+  </body>
+  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    // 함수 컴포넌트 인자로 전달되는 객체(props, property)에서 프로퍼티를 꺼낸다.
+    // prop을 원하는 곳에 넣어야 적용이 된다.
+    // memo: props 변경 여부에 따라 컴포넌트를 리렌더링할지 말지를 정할 수 있다.
+    function Btn({text, changeValue}) {
+      console.log(text, "was rendered");
+      return (
+        <button
+          onClick={changeValue}
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: 10,
+          }}
+        >
+          {text}
+        </button>
+      );
+    }
+
+    const MemorizedBtn = React.memo(Btn);
+    /**만약 부모 컴포넌트의 상태가 변경된다면 자식 컴포넌트는 모두 리렌더링 될것이다.
+     * 그러면 어플리케이션이 느려질 수 있다.  */
+    function App() {
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
+      // onClick을 컴포넌트에 넣는다면 이벤트 리스너로 인식하지 않는다. 단지 하나의 prop이다.
+      // <Btn text={value} onClick={changeValue} />
+
+      return (
+        <div>
+          <MemorizedBtn text={value} changeValue={changeValue} />
+          <MemorizedBtn text="Continue" />
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>

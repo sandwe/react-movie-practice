@@ -1,0 +1,26 @@
+<!-- createElement는 진짜 잘 안쓴다. createElement를 대체할 수 있는 방법: JSX-->
+<!DOCTYPE html>
+<html lang="ko">
+  <body>
+    <div id="root"></div>
+  </body>
+  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script>
+    const root = document.getElementById("root");
+    const h3 = React.createElement("h3", {onMouseEnter: () => console.log("mouse eneter")}, "Hello I'm span");
+    // 아래 한줄의 코드로 버튼을 만들고, 버튼에 내용을 넣고, 요소의 속성까지 부여 가능하다.
+    const btn = React.createElement(
+      "button",
+      {
+        onClick: () => console.log("i'm clicked"),
+        id: "btn",
+      },
+      "Click me"
+    );
+    // 두개의 요소를 자식으로 넣어주기 위해서는 배열에 넣는다.
+    const container = React.createElement("div", null, [h3, btn]);
+    // JS로 요소를 만들고 HTML에 요소를 넣어주는 것이 React
+    ReactDOM.render(container, root);
+  </script>
+</html>
