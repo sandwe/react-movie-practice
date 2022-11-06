@@ -3,13 +3,13 @@
   <body>
     <div id="root"></div>
   </body>
-  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script type="text/babel">
-    function Btn({text, changeValue, fontSize}) {
+    function Btn({text, changeValue, fontSize = 16}) {
       console.log(text, "was rendered");
       return (
         <button
@@ -28,10 +28,9 @@
       );
     }
 
-    const MemorizedBtn = React.memo(Btn);
-
+    // PropTypes를 사용하면 prop의 타입을 검사해 콘솔창에서 타입이 일치하지 않는지를 알 수 있다.
     Btn.propTypes = {
-      text: PropTypes.string,
+      text: PropTypes.string.isRequired,
       fontSize: PropTypes.number,
     };
 
@@ -41,8 +40,8 @@
 
       return (
         <div>
-          <MemorizedBtn text={value} changeValue={changeValue} fontSize={18} />
-          <MemorizedBtn text="Continue" />
+          <Btn text={value} changeValue={changeValue} fontSize={18} />
+          <Btn text="Continue" />
         </div>
       );
     }

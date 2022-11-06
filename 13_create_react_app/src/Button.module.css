@@ -1,0 +1,5 @@
+/* 컴포넌트의 스타일도 모듈화 시킬 수 있다 */
+.btn {
+  color: white;
+  background-color: tomato;
+}
